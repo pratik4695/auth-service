@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package auth_service;
+
+message Empty {}
+
+message BooleanResponse {
+  bool success = 1;
+}
+
+message UserBlob {
+  string id = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string user_type = 4;
+  string entity_id = 5;
+  string name = 6;
+  string platform = 7;
+}
+
+message AuthToken {
+  string access_token = 1;
+  string refresh_token = 2;
+  int64 expires = 3;
+}
+
+message Userdata {
+  string id = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string user_type = 4;
+  string email = 5;
+  string mobile = 6;
+  int64 created = 7;
+  string username = 8;
+}
+
+message UserLoginResponse {
+  AuthToken token = 1;
+  Userdata user = 2;
+}
+
+message UserLoginWithPassword {
+  string email = 1;
+  string password = 2;
+}
+
+message RegisterUserInput {
+  string email = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string user_type = 4;
+  string mobile = 5;
+  string username = 6;
+  string password = 7;
+  string re_password = 8;
+  string date_of_birth = 9;
+  string gender = 10;
+}
+
+service  AuthService{
+  rpc RegisterUser(RegisterUserInput) returns (UserLoginResponse);
+  rpc LoginUser(UserLoginWithPassword) returns (UserLoginResponse);
+}
