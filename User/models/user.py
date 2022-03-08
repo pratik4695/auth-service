@@ -1,4 +1,5 @@
 import uuid
+import requests
 
 import jwt
 from datetime import datetime, timedelta, date
@@ -682,3 +683,25 @@ class UserActivationKey(TimeStampedModel):
 
     def __str__(self):
         return self.user.name + "'s codes"
+
+
+class MobileOTP(TimeStampedModel):
+    access_otp = models.CharField(max_length=255)
+    access_otp_expiry = models.DateTimeField(null=True, blank=True)
+    temp_mobile = models.CharField(max_length=10)
+    otp_verified = models.BooleanField(default=False)
+
+    def send_otp_via_2_factor(self):
+        import pdb
+        pdb.set_trace()
+        url = "http://2factor.in/API/V1/{}/SMS/{}/{}/{}".format("e4844159-9e17-11ec-a4c2-0200cd936042",
+                                                                self.temp_mobile, self.access_otp, "MYSTOX")
+
+        payload = ""
+        headers = {'content-type': 'application/x-www-form-urlencoded'}
+
+        response = requests.get(url, data=payload, headers=headers)
+
+        print(response.text)
+
+

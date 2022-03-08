@@ -58,7 +58,18 @@ message RegisterUserInput {
   string gender = 10;
 }
 
+message MobileInput {
+  string mobile = 1;
+}
+
+message ValidateMobileOTPInput {
+  string mobile = 1;
+  string otp = 2;
+}
+
 service  AuthService{
   rpc RegisterUser(RegisterUserInput) returns (UserLoginResponse);
   rpc LoginUser(UserLoginWithPassword) returns (UserLoginResponse);
+  rpc GenerateMobileOTP(MobileInput) returns (BooleanResponse);
+  rpc ValidateMobileOTP(ValidateMobileOTPInput) returns (BooleanResponse);
 }

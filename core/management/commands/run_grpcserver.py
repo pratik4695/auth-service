@@ -5,7 +5,7 @@ from contextlib import contextmanager
 import grpc
 from django.core.management import BaseCommand
 
-from User.grpcs import RegisterUser, LoginUser
+from User.grpcs import RegisterUser, LoginUser, GenerateMobileOTP, ValidateMobileOTP
 from auth_service_pb2_grpc import AuthServiceServicer, add_AuthServiceServicer_to_server
 
 
@@ -15,6 +15,12 @@ class AuthService(AuthServiceServicer):
 
     def LoginUser(self, request, context):
         return LoginUser(request, context).__call__()
+
+    def GenerateMobileOTP(self, request, context):
+        return GenerateMobileOTP(request, context).__call__()
+
+    def ValidateMobileOTP(self, request, context):
+        return ValidateMobileOTP(request, context).__call__()
 
 
 @contextmanager

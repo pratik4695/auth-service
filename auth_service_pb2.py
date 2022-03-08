@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12\x61uth_service.proto\x12\x0c\x61uth_service\"\x07\n\x05\x45mpty\"\"\n\x0f\x42ooleanResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"\x83\x01\n\x08UserBlob\x12\n\n\x02id\x18\x01 \x01(\t\x12\x12\n\nfirst_name\x18\x02 \x01(\t\x12\x11\n\tlast_name\x18\x03 \x01(\t\x12\x11\n\tuser_type\x18\x04 \x01(\t\x12\x11\n\tentity_id\x18\x05 \x01(\t\x12\x0c\n\x04name\x18\x06 \x01(\t\x12\x10\n\x08platform\x18\x07 \x01(\t\"I\n\tAuthToken\x12\x14\n\x0c\x61\x63\x63\x65ss_token\x18\x01 \x01(\t\x12\x15\n\rrefresh_token\x18\x02 \x01(\t\x12\x0f\n\x07\x65xpires\x18\x03 \x01(\x03\"\x92\x01\n\x08Userdata\x12\n\n\x02id\x18\x01 \x01(\t\x12\x12\n\nfirst_name\x18\x02 \x01(\t\x12\x11\n\tlast_name\x18\x03 \x01(\t\x12\x11\n\tuser_type\x18\x04 \x01(\t\x12\r\n\x05\x65mail\x18\x05 \x01(\t\x12\x0e\n\x06mobile\x18\x06 \x01(\t\x12\x0f\n\x07\x63reated\x18\x07 \x01(\x03\x12\x10\n\x08username\x18\x08 \x01(\t\"a\n\x11UserLoginResponse\x12&\n\x05token\x18\x01 \x01(\x0b\x32\x17.auth_service.AuthToken\x12$\n\x04user\x18\x02 \x01(\x0b\x32\x16.auth_service.Userdata\"8\n\x15UserLoginWithPassword\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\xcc\x01\n\x11RegisterUserInput\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x12\n\nfirst_name\x18\x02 \x01(\t\x12\x11\n\tlast_name\x18\x03 \x01(\t\x12\x11\n\tuser_type\x18\x04 \x01(\t\x12\x0e\n\x06mobile\x18\x05 \x01(\t\x12\x10\n\x08username\x18\x06 \x01(\t\x12\x10\n\x08password\x18\x07 \x01(\t\x12\x13\n\x0bre_password\x18\x08 \x01(\t\x12\x15\n\rdate_of_birth\x18\t \x01(\t\x12\x0e\n\x06gender\x18\n \x01(\t2\xb2\x01\n\x0b\x41uthService\x12P\n\x0cRegisterUser\x12\x1f.auth_service.RegisterUserInput\x1a\x1f.auth_service.UserLoginResponse\x12Q\n\tLoginUser\x12#.auth_service.UserLoginWithPassword\x1a\x1f.auth_service.UserLoginResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12\x61uth_service.proto\x12\x0c\x61uth_service\"\x07\n\x05\x45mpty\"\"\n\x0f\x42ooleanResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"\x83\x01\n\x08UserBlob\x12\n\n\x02id\x18\x01 \x01(\t\x12\x12\n\nfirst_name\x18\x02 \x01(\t\x12\x11\n\tlast_name\x18\x03 \x01(\t\x12\x11\n\tuser_type\x18\x04 \x01(\t\x12\x11\n\tentity_id\x18\x05 \x01(\t\x12\x0c\n\x04name\x18\x06 \x01(\t\x12\x10\n\x08platform\x18\x07 \x01(\t\"I\n\tAuthToken\x12\x14\n\x0c\x61\x63\x63\x65ss_token\x18\x01 \x01(\t\x12\x15\n\rrefresh_token\x18\x02 \x01(\t\x12\x0f\n\x07\x65xpires\x18\x03 \x01(\x03\"\x92\x01\n\x08Userdata\x12\n\n\x02id\x18\x01 \x01(\t\x12\x12\n\nfirst_name\x18\x02 \x01(\t\x12\x11\n\tlast_name\x18\x03 \x01(\t\x12\x11\n\tuser_type\x18\x04 \x01(\t\x12\r\n\x05\x65mail\x18\x05 \x01(\t\x12\x0e\n\x06mobile\x18\x06 \x01(\t\x12\x0f\n\x07\x63reated\x18\x07 \x01(\x03\x12\x10\n\x08username\x18\x08 \x01(\t\"a\n\x11UserLoginResponse\x12&\n\x05token\x18\x01 \x01(\x0b\x32\x17.auth_service.AuthToken\x12$\n\x04user\x18\x02 \x01(\x0b\x32\x16.auth_service.Userdata\"8\n\x15UserLoginWithPassword\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\xcc\x01\n\x11RegisterUserInput\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x12\n\nfirst_name\x18\x02 \x01(\t\x12\x11\n\tlast_name\x18\x03 \x01(\t\x12\x11\n\tuser_type\x18\x04 \x01(\t\x12\x0e\n\x06mobile\x18\x05 \x01(\t\x12\x10\n\x08username\x18\x06 \x01(\t\x12\x10\n\x08password\x18\x07 \x01(\t\x12\x13\n\x0bre_password\x18\x08 \x01(\t\x12\x15\n\rdate_of_birth\x18\t \x01(\t\x12\x0e\n\x06gender\x18\n \x01(\t\"\x1d\n\x0bMobileInput\x12\x0e\n\x06mobile\x18\x01 \x01(\t\"5\n\x16ValidateMobileOTPInput\x12\x0e\n\x06mobile\x18\x01 \x01(\t\x12\x0b\n\x03otp\x18\x02 \x01(\t2\xdb\x02\n\x0b\x41uthService\x12P\n\x0cRegisterUser\x12\x1f.auth_service.RegisterUserInput\x1a\x1f.auth_service.UserLoginResponse\x12Q\n\tLoginUser\x12#.auth_service.UserLoginWithPassword\x1a\x1f.auth_service.UserLoginResponse\x12M\n\x11GenerateMobileOTP\x12\x19.auth_service.MobileInput\x1a\x1d.auth_service.BooleanResponse\x12X\n\x11ValidateMobileOTP\x12$.auth_service.ValidateMobileOTPInput\x1a\x1d.auth_service.BooleanResponseb\x06proto3')
 
 
 
@@ -26,6 +26,8 @@ _USERDATA = DESCRIPTOR.message_types_by_name['Userdata']
 _USERLOGINRESPONSE = DESCRIPTOR.message_types_by_name['UserLoginResponse']
 _USERLOGINWITHPASSWORD = DESCRIPTOR.message_types_by_name['UserLoginWithPassword']
 _REGISTERUSERINPUT = DESCRIPTOR.message_types_by_name['RegisterUserInput']
+_MOBILEINPUT = DESCRIPTOR.message_types_by_name['MobileInput']
+_VALIDATEMOBILEOTPINPUT = DESCRIPTOR.message_types_by_name['ValidateMobileOTPInput']
 Empty = _reflection.GeneratedProtocolMessageType('Empty', (_message.Message,), {
   'DESCRIPTOR' : _EMPTY,
   '__module__' : 'auth_service_pb2'
@@ -82,6 +84,20 @@ RegisterUserInput = _reflection.GeneratedProtocolMessageType('RegisterUserInput'
   })
 _sym_db.RegisterMessage(RegisterUserInput)
 
+MobileInput = _reflection.GeneratedProtocolMessageType('MobileInput', (_message.Message,), {
+  'DESCRIPTOR' : _MOBILEINPUT,
+  '__module__' : 'auth_service_pb2'
+  # @@protoc_insertion_point(class_scope:auth_service.MobileInput)
+  })
+_sym_db.RegisterMessage(MobileInput)
+
+ValidateMobileOTPInput = _reflection.GeneratedProtocolMessageType('ValidateMobileOTPInput', (_message.Message,), {
+  'DESCRIPTOR' : _VALIDATEMOBILEOTPINPUT,
+  '__module__' : 'auth_service_pb2'
+  # @@protoc_insertion_point(class_scope:auth_service.ValidateMobileOTPInput)
+  })
+_sym_db.RegisterMessage(ValidateMobileOTPInput)
+
 _AUTHSERVICE = DESCRIPTOR.services_by_name['AuthService']
 if _descriptor._USE_C_DESCRIPTORS == False:
 
@@ -102,6 +118,10 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _USERLOGINWITHPASSWORD._serialized_end=594
   _REGISTERUSERINPUT._serialized_start=597
   _REGISTERUSERINPUT._serialized_end=801
-  _AUTHSERVICE._serialized_start=804
-  _AUTHSERVICE._serialized_end=982
+  _MOBILEINPUT._serialized_start=803
+  _MOBILEINPUT._serialized_end=832
+  _VALIDATEMOBILEOTPINPUT._serialized_start=834
+  _VALIDATEMOBILEOTPINPUT._serialized_end=887
+  _AUTHSERVICE._serialized_start=890
+  _AUTHSERVICE._serialized_end=1237
 # @@protoc_insertion_point(module_scope)

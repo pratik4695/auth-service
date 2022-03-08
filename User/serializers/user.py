@@ -2,6 +2,7 @@ from rest_framework.fields import (CharField, EmailField, UUIDField, IntegerFiel
 from rest_framework.serializers import ModelSerializer, ValidationError
 
 from User.models import User
+from User.models.user import MobileOTP
 from User.services.helper import contains_profane
 from User.services.validators import mobile_validator_with_specific_error
 
@@ -136,4 +137,12 @@ class UserListShortSerializer(ModelSerializer):
         model = User
         fields = (
             'id', 'user_type', 'first_name', 'last_name'
+        )
+
+
+class MobileOTPSerializer(ModelSerializer):
+    class Meta:
+        model = MobileOTP
+        fields = (
+            'access_otp', 'access_otp_expiry', 'temp_mobile'
         )
