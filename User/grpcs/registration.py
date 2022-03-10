@@ -144,8 +144,8 @@ class GenerateMobileOTP(UnaryGRPC):
         return mobile_otp
 
     def run_logic(self, data):
-        import pdb
-        pdb.set_trace()
+        # import pdb
+        # pdb.set_trace()
         log.info("Received request for MobileOTP generation - %s" % data)
         self.validate_data(data)
         mobile_otp = self.generate_access_otp(data)

@@ -1,4 +1,4 @@
-from rest_framework.fields import (CharField, EmailField, UUIDField, IntegerField)
+from rest_framework.fields import (CharField, EmailField, UUIDField, IntegerField, SerializerMethodField)
 from rest_framework.serializers import ModelSerializer, ValidationError
 
 from User.models import User
@@ -146,3 +146,43 @@ class MobileOTPSerializer(ModelSerializer):
         fields = (
             'access_otp', 'access_otp_expiry', 'temp_mobile'
         )
+
+
+class UserListSerializer(ModelSerializer):
+    email = SerializerMethodField()
+    mobile = SerializerMethodField()
+    access_token = SerializerMethodField()
+
+    class Meta:
+        model = User
+        fields = (
+            'id', 'user_type', 'first_name', 'last_name', 'email', 'mobile', 'username', 'access_token'
+        )
+
+    @staticmethod
+    def get_email(user: User):
+        user.decrypt_email()
+        email = user.email
+        # if email:
+        #     email_arr = email.split('@')
+        #     start_email = "".join('*' if email_char_index % 3 else email_arr[0][email_char_index] for email_char_index
+        #                           in range(len(email_arr[0])))
+        #     email = "{0}@{1}".format(start_email, email_arr[1])
+        return email
+
+    @staticmethod
+    def get_mobile(user: User):
+        user.decrypt_mobile()
+        mobile = user.mobile
+        # if mobile:
+        #     mobile = mobile.replace(mobile[1:-3], '*' * 6)
+        return mobile
+
+    @staticmethod
+    def get_access_token(user: User):
+        access_token = ""
+        token = user.user_jwt.latest('created')
+        if token:
+            access_token = token.access_token
+
+        return access_token

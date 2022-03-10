@@ -516,7 +516,7 @@ class UserJWTToken(TimeStampedModel):
     """
         Keeping the Access and Refresh Token
     """
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='user_jwt', on_delete=models.CASCADE)
     access_token = models.CharField(max_length=400)
     refresh_token = models.CharField(max_length=400)
     expires = models.DateTimeField()
@@ -692,8 +692,8 @@ class MobileOTP(TimeStampedModel):
     otp_verified = models.BooleanField(default=False)
 
     def send_otp_via_2_factor(self):
-        import pdb
-        pdb.set_trace()
+        # import pdb
+        # pdb.set_trace()
         url = "http://2factor.in/API/V1/{}/SMS/{}/{}/{}".format("e4844159-9e17-11ec-a4c2-0200cd936042",
                                                                 self.temp_mobile, self.access_otp, "MYSTOX")
 

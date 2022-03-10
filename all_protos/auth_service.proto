@@ -67,9 +67,25 @@ message ValidateMobileOTPInput {
   string otp = 2;
 }
 
+message UserListData {
+  string id = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string user_type = 4;
+  string email = 5;
+  string mobile = 6;
+  string username = 8;
+  string access_token = 9;
+}
+
+message UserListResponse {
+  repeated UserListData users = 1;
+}
+
 service  AuthService{
   rpc RegisterUser(RegisterUserInput) returns (UserLoginResponse);
   rpc LoginUser(UserLoginWithPassword) returns (UserLoginResponse);
   rpc GenerateMobileOTP(MobileInput) returns (BooleanResponse);
   rpc ValidateMobileOTP(ValidateMobileOTPInput) returns (BooleanResponse);
+  rpc GetUserList(Empty) returns (UserListResponse);
 }
