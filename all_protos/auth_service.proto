@@ -78,8 +78,27 @@ message UserListData {
   string access_token = 9;
 }
 
+message GetUserListInput {
+  int32 page = 1;
+}
+
 message UserListResponse {
   repeated UserListData users = 1;
+  int32 per_page = 2;
+  int32 orphans = 3;
+  int32 allow_empty_first_page = 4;
+  int32 count = 5;
+  int32 num_pages = 6;
+}
+
+message UserEditInput {
+  string id = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string user_type = 4;
+  string email = 5;
+  string mobile = 6;
+  string username = 8;
 }
 
 service  AuthService{
@@ -87,5 +106,6 @@ service  AuthService{
   rpc LoginUser(UserLoginWithPassword) returns (UserLoginResponse);
   rpc GenerateMobileOTP(MobileInput) returns (BooleanResponse);
   rpc ValidateMobileOTP(ValidateMobileOTPInput) returns (BooleanResponse);
-  rpc GetUserList(Empty) returns (UserListResponse);
+  rpc GetUserList(GetUserListInput) returns (UserListResponse);
+  rpc EditUserDetail(UserEditInput) returns (BooleanResponse);
 }
