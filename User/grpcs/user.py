@@ -1,7 +1,7 @@
 import datetime
 
 from User.models import User
-from User.serializers.user import UserListSerializer, UserSerializer
+from User.serializers.user import UserListSerializer, UserSerializer, UserListMinimumSerializer
 from core.grpc import UnaryGRPC
 from auth_service_pb2 import UserListResponse, BooleanResponse
 from core.grpc_exceptions import ValidationError
@@ -60,6 +60,7 @@ class EditUserDetail(UnaryGRPC):
     #     return True
 
     def validate_data(self, data):
+        log.info("Received request for editing the user - %s" % data)
         if not data.get("id"):
             raise ValidationError("Please provide the valid user id")
 
@@ -78,12 +79,13 @@ class EditUserDetail(UnaryGRPC):
         if not email:
             raise ValidationError("Required Field: Email")
 
-        active_user_with_mobile_no_exist = User.objects.filter(mobile=mobile, is_active=True).exists()
+        active_user_with_mobile_no_exist = User.objects.filter(mobile=mobile, is_active=True).exclude(
+            id=data["id"]).exists()
 
         if active_user_with_mobile_no_exist:
             raise ValidationError("This mobile number is already active with us.")
 
-        active_user_with_email_exist = User.objects.filter(email=email, is_active=True).exists()
+        active_user_with_email_exist = User.objects.filter(email=email, is_active=True).exclude(id=data["id"]).exists()
 
         if active_user_with_email_exist:
             raise ValidationError("This email id is already active with us.")
@@ -108,8 +110,11 @@ class EditUserDetail(UnaryGRPC):
         data["is_active"] = True
 
     def run_logic(self, data):
+        # import pdb
+        # pdb.set_trace()
         log.info("Received request for updating the user detail - %s" % data)
 
+        self.validate_data(data)
         try:
             user = User.objects.get(id=data["id"])
         except User.DoesNotExist:
@@ -120,3 +125,33 @@ class EditUserDetail(UnaryGRPC):
         user = user_serializer.save()
 
         return {"success": True}
+
+
+class GetUserIDsDetail(UnaryGRPC):
+    response_proto = UserListResponse
+
+    # def perform_authentication(self, user):
+    #     if not user or user.user_type != "PA":
+    #         return False
+    #     return True
+
+    def run_logic(self, data):
+        # import pdb
+        # pdb.set_trace()
+        log.info("Received request for fetching list of user - %s" % data)
+        if not data.get("users"):
+            raise ValidationError("Please provide the user ids")
+
+        users = User.objects.filter(id__in=data["users"])
+
+        if not users:
+            raise ValidationError("Invalid user ids were provided")
+
+        serializer = UserListMinimumSerializer(users, many=True)
+
+        response = {
+            "users": serializer.data
+        }
+        print("This is the response = {}".format(response))
+
+        return response

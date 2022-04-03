@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12\x61uth_service.proto\x12\x0c\x61uth_service\"\x07\n\x05\x45mpty\"\"\n\x0f\x42ooleanResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"\x83\x01\n\x08UserBlob\x12\n\n\x02id\x18\x01 \x01(\t\x12\x12\n\nfirst_name\x18\x02 \x01(\t\x12\x11\n\tlast_name\x18\x03 \x01(\t\x12\x11\n\tuser_type\x18\x04 \x01(\t\x12\x11\n\tentity_id\x18\x05 \x01(\t\x12\x0c\n\x04name\x18\x06 \x01(\t\x12\x10\n\x08platform\x18\x07 \x01(\t\"I\n\tAuthToken\x12\x14\n\x0c\x61\x63\x63\x65ss_token\x18\x01 \x01(\t\x12\x15\n\rrefresh_token\x18\x02 \x01(\t\x12\x0f\n\x07\x65xpires\x18\x03 \x01(\x03\"\x92\x01\n\x08Userdata\x12\n\n\x02id\x18\x01 \x01(\t\x12\x12\n\nfirst_name\x18\x02 \x01(\t\x12\x11\n\tlast_name\x18\x03 \x01(\t\x12\x11\n\tuser_type\x18\x04 \x01(\t\x12\r\n\x05\x65mail\x18\x05 \x01(\t\x12\x0e\n\x06mobile\x18\x06 \x01(\t\x12\x0f\n\x07\x63reated\x18\x07 \x01(\x03\x12\x10\n\x08username\x18\x08 \x01(\t\"a\n\x11UserLoginResponse\x12&\n\x05token\x18\x01 \x01(\x0b\x32\x17.auth_service.AuthToken\x12$\n\x04user\x18\x02 \x01(\x0b\x32\x16.auth_service.Userdata\"8\n\x15UserLoginWithPassword\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\xcc\x01\n\x11RegisterUserInput\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x12\n\nfirst_name\x18\x02 \x01(\t\x12\x11\n\tlast_name\x18\x03 \x01(\t\x12\x11\n\tuser_type\x18\x04 \x01(\t\x12\x0e\n\x06mobile\x18\x05 \x01(\t\x12\x10\n\x08username\x18\x06 \x01(\t\x12\x10\n\x08password\x18\x07 \x01(\t\x12\x13\n\x0bre_password\x18\x08 \x01(\t\x12\x15\n\rdate_of_birth\x18\t \x01(\t\x12\x0e\n\x06gender\x18\n \x01(\t\"\x1d\n\x0bMobileInput\x12\x0e\n\x06mobile\x18\x01 \x01(\t\"5\n\x16ValidateMobileOTPInput\x12\x0e\n\x06mobile\x18\x01 \x01(\t\x12\x0b\n\x03otp\x18\x02 \x01(\t\"\x9b\x01\n\x0cUserListData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x12\n\nfirst_name\x18\x02 \x01(\t\x12\x11\n\tlast_name\x18\x03 \x01(\t\x12\x11\n\tuser_type\x18\x04 \x01(\t\x12\r\n\x05\x65mail\x18\x05 \x01(\t\x12\x0e\n\x06mobile\x18\x06 \x01(\t\x12\x10\n\x08username\x18\x08 \x01(\t\x12\x14\n\x0c\x61\x63\x63\x65ss_token\x18\t \x01(\t\" \n\x10GetUserListInput\x12\x0c\n\x04page\x18\x01 \x01(\x05\"\xa2\x01\n\x10UserListResponse\x12)\n\x05users\x18\x01 \x03(\x0b\x32\x1a.auth_service.UserListData\x12\x10\n\x08per_page\x18\x02 \x01(\x05\x12\x0f\n\x07orphans\x18\x03 \x01(\x05\x12\x1e\n\x16\x61llow_empty_first_page\x18\x04 \x01(\x05\x12\r\n\x05\x63ount\x18\x05 \x01(\x05\x12\x11\n\tnum_pages\x18\x06 \x01(\x05\"\x86\x01\n\rUserEditInput\x12\n\n\x02id\x18\x01 \x01(\t\x12\x12\n\nfirst_name\x18\x02 \x01(\t\x12\x11\n\tlast_name\x18\x03 \x01(\t\x12\x11\n\tuser_type\x18\x04 \x01(\t\x12\r\n\x05\x65mail\x18\x05 \x01(\t\x12\x0e\n\x06mobile\x18\x06 \x01(\t\x12\x10\n\x08username\x18\x08 \x01(\t2\xf8\x03\n\x0b\x41uthService\x12P\n\x0cRegisterUser\x12\x1f.auth_service.RegisterUserInput\x1a\x1f.auth_service.UserLoginResponse\x12Q\n\tLoginUser\x12#.auth_service.UserLoginWithPassword\x1a\x1f.auth_service.UserLoginResponse\x12M\n\x11GenerateMobileOTP\x12\x19.auth_service.MobileInput\x1a\x1d.auth_service.BooleanResponse\x12X\n\x11ValidateMobileOTP\x12$.auth_service.ValidateMobileOTPInput\x1a\x1d.auth_service.BooleanResponse\x12M\n\x0bGetUserList\x12\x1e.auth_service.GetUserListInput\x1a\x1e.auth_service.UserListResponse\x12L\n\x0e\x45\x64itUserDetail\x12\x1b.auth_service.UserEditInput\x1a\x1d.auth_service.BooleanResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12\x61uth_service.proto\x12\x0c\x61uth_service\"\x07\n\x05\x45mpty\"\"\n\x0f\x42ooleanResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"\x83\x01\n\x08UserBlob\x12\n\n\x02id\x18\x01 \x01(\t\x12\x12\n\nfirst_name\x18\x02 \x01(\t\x12\x11\n\tlast_name\x18\x03 \x01(\t\x12\x11\n\tuser_type\x18\x04 \x01(\t\x12\x11\n\tentity_id\x18\x05 \x01(\t\x12\x0c\n\x04name\x18\x06 \x01(\t\x12\x10\n\x08platform\x18\x07 \x01(\t\"I\n\tAuthToken\x12\x14\n\x0c\x61\x63\x63\x65ss_token\x18\x01 \x01(\t\x12\x15\n\rrefresh_token\x18\x02 \x01(\t\x12\x0f\n\x07\x65xpires\x18\x03 \x01(\x03\"\x92\x01\n\x08Userdata\x12\n\n\x02id\x18\x01 \x01(\t\x12\x12\n\nfirst_name\x18\x02 \x01(\t\x12\x11\n\tlast_name\x18\x03 \x01(\t\x12\x11\n\tuser_type\x18\x04 \x01(\t\x12\r\n\x05\x65mail\x18\x05 \x01(\t\x12\x0e\n\x06mobile\x18\x06 \x01(\t\x12\x0f\n\x07\x63reated\x18\x07 \x01(\x03\x12\x10\n\x08username\x18\x08 \x01(\t\"a\n\x11UserLoginResponse\x12&\n\x05token\x18\x01 \x01(\x0b\x32\x17.auth_service.AuthToken\x12$\n\x04user\x18\x02 \x01(\x0b\x32\x16.auth_service.Userdata\"8\n\x15UserLoginWithPassword\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\xcc\x01\n\x11RegisterUserInput\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x12\n\nfirst_name\x18\x02 \x01(\t\x12\x11\n\tlast_name\x18\x03 \x01(\t\x12\x11\n\tuser_type\x18\x04 \x01(\t\x12\x0e\n\x06mobile\x18\x05 \x01(\t\x12\x10\n\x08username\x18\x06 \x01(\t\x12\x10\n\x08password\x18\x07 \x01(\t\x12\x13\n\x0bre_password\x18\x08 \x01(\t\x12\x15\n\rdate_of_birth\x18\t \x01(\t\x12\x0e\n\x06gender\x18\n \x01(\t\"\x1d\n\x0bMobileInput\x12\x0e\n\x06mobile\x18\x01 \x01(\t\"5\n\x16ValidateMobileOTPInput\x12\x0e\n\x06mobile\x18\x01 \x01(\t\x12\x0b\n\x03otp\x18\x02 \x01(\t\"\xb2\x01\n\x0cUserListData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x12\n\nfirst_name\x18\x02 \x01(\t\x12\x11\n\tlast_name\x18\x03 \x01(\t\x12\x11\n\tuser_type\x18\x04 \x01(\t\x12\r\n\x05\x65mail\x18\x05 \x01(\t\x12\x0e\n\x06mobile\x18\x06 \x01(\t\x12\x10\n\x08username\x18\x08 \x01(\t\x12\x15\n\rdate_of_birth\x18\t \x01(\t\x12\x14\n\x0c\x61\x63\x63\x65ss_token\x18\n \x01(\t\" \n\x10GetUserListInput\x12\x0c\n\x04page\x18\x01 \x01(\x05\"\xa2\x01\n\x10UserListResponse\x12)\n\x05users\x18\x01 \x03(\x0b\x32\x1a.auth_service.UserListData\x12\x10\n\x08per_page\x18\x02 \x01(\x05\x12\x0f\n\x07orphans\x18\x03 \x01(\x05\x12\x1e\n\x16\x61llow_empty_first_page\x18\x04 \x01(\x05\x12\r\n\x05\x63ount\x18\x05 \x01(\x05\x12\x11\n\tnum_pages\x18\x06 \x01(\x05\"\x9d\x01\n\rUserEditInput\x12\n\n\x02id\x18\x01 \x01(\t\x12\x12\n\nfirst_name\x18\x02 \x01(\t\x12\x11\n\tlast_name\x18\x03 \x01(\t\x12\x11\n\tuser_type\x18\x04 \x01(\t\x12\r\n\x05\x65mail\x18\x05 \x01(\t\x12\x0e\n\x06mobile\x18\x06 \x01(\t\x12\x10\n\x08username\x18\x07 \x01(\t\x12\x15\n\rdate_of_birth\x18\x08 \x01(\t\"w\n\x11UserShortResponse\x12\n\n\x02id\x18\x01 \x01(\t\x12\x12\n\nfirst_name\x18\x02 \x01(\t\x12\x11\n\tlast_name\x18\x03 \x01(\t\x12\r\n\x05\x65mail\x18\x04 \x01(\t\x12\x0e\n\x06mobile\x18\x05 \x01(\t\x12\x10\n\x08username\x18\x06 \x01(\t\"Z\n\x13UserMinimumResponse\x12\n\n\x02id\x18\x01 \x01(\t\x12\x12\n\nfirst_name\x18\x02 \x01(\t\x12\x11\n\tlast_name\x18\x03 \x01(\t\x12\x10\n\x08username\x18\x06 \x01(\t\"M\n\x0eStatusResponse\x12\x15\n\rerror_message\x18\x01 \x01(\t\x12\x13\n\x0bstatus_code\x18\x02 \x01(\x05\x12\x0f\n\x07success\x18\x03 \x01(\x08\"t\n\x15\x41uthorisationResponse\x12-\n\x04user\x18\x01 \x01(\x0b\x32\x1f.auth_service.UserShortResponse\x12,\n\x06status\x18\x02 \x01(\x0b\x32\x1c.auth_service.StatusResponse\"#\n\x12\x41uthorisationInput\x12\r\n\x05token\x18\x01 \x01(\t\"&\n\x15GetUserIDsDetailInput\x12\r\n\x05users\x18\x01 \x03(\t\"L\n\x18GetUserIDsDetailResponse\x12\x30\n\x05users\x18\x01 \x03(\x0b\x32!.auth_service.UserMinimumResponse2\xba\x05\n\x0b\x41uthService\x12P\n\x0cRegisterUser\x12\x1f.auth_service.RegisterUserInput\x1a\x1f.auth_service.UserLoginResponse\x12Q\n\tLoginUser\x12#.auth_service.UserLoginWithPassword\x1a\x1f.auth_service.UserLoginResponse\x12M\n\x11GenerateMobileOTP\x12\x19.auth_service.MobileInput\x1a\x1d.auth_service.BooleanResponse\x12X\n\x11ValidateMobileOTP\x12$.auth_service.ValidateMobileOTPInput\x1a\x1d.auth_service.BooleanResponse\x12M\n\x0bGetUserList\x12\x1e.auth_service.GetUserListInput\x1a\x1e.auth_service.UserListResponse\x12L\n\x0e\x45\x64itUserDetail\x12\x1b.auth_service.UserEditInput\x1a\x1d.auth_service.BooleanResponse\x12_\n\x16\x41uthenticateUserViaJWT\x12 .auth_service.AuthorisationInput\x1a#.auth_service.AuthorisationResponse\x12_\n\x10GetUserIDsDetail\x12#.auth_service.GetUserIDsDetailInput\x1a&.auth_service.GetUserIDsDetailResponseb\x06proto3')
 
 
 
@@ -32,6 +32,13 @@ _USERLISTDATA = DESCRIPTOR.message_types_by_name['UserListData']
 _GETUSERLISTINPUT = DESCRIPTOR.message_types_by_name['GetUserListInput']
 _USERLISTRESPONSE = DESCRIPTOR.message_types_by_name['UserListResponse']
 _USEREDITINPUT = DESCRIPTOR.message_types_by_name['UserEditInput']
+_USERSHORTRESPONSE = DESCRIPTOR.message_types_by_name['UserShortResponse']
+_USERMINIMUMRESPONSE = DESCRIPTOR.message_types_by_name['UserMinimumResponse']
+_STATUSRESPONSE = DESCRIPTOR.message_types_by_name['StatusResponse']
+_AUTHORISATIONRESPONSE = DESCRIPTOR.message_types_by_name['AuthorisationResponse']
+_AUTHORISATIONINPUT = DESCRIPTOR.message_types_by_name['AuthorisationInput']
+_GETUSERIDSDETAILINPUT = DESCRIPTOR.message_types_by_name['GetUserIDsDetailInput']
+_GETUSERIDSDETAILRESPONSE = DESCRIPTOR.message_types_by_name['GetUserIDsDetailResponse']
 Empty = _reflection.GeneratedProtocolMessageType('Empty', (_message.Message,), {
   'DESCRIPTOR' : _EMPTY,
   '__module__' : 'auth_service_pb2'
@@ -130,6 +137,55 @@ UserEditInput = _reflection.GeneratedProtocolMessageType('UserEditInput', (_mess
   })
 _sym_db.RegisterMessage(UserEditInput)
 
+UserShortResponse = _reflection.GeneratedProtocolMessageType('UserShortResponse', (_message.Message,), {
+  'DESCRIPTOR' : _USERSHORTRESPONSE,
+  '__module__' : 'auth_service_pb2'
+  # @@protoc_insertion_point(class_scope:auth_service.UserShortResponse)
+  })
+_sym_db.RegisterMessage(UserShortResponse)
+
+UserMinimumResponse = _reflection.GeneratedProtocolMessageType('UserMinimumResponse', (_message.Message,), {
+  'DESCRIPTOR' : _USERMINIMUMRESPONSE,
+  '__module__' : 'auth_service_pb2'
+  # @@protoc_insertion_point(class_scope:auth_service.UserMinimumResponse)
+  })
+_sym_db.RegisterMessage(UserMinimumResponse)
+
+StatusResponse = _reflection.GeneratedProtocolMessageType('StatusResponse', (_message.Message,), {
+  'DESCRIPTOR' : _STATUSRESPONSE,
+  '__module__' : 'auth_service_pb2'
+  # @@protoc_insertion_point(class_scope:auth_service.StatusResponse)
+  })
+_sym_db.RegisterMessage(StatusResponse)
+
+AuthorisationResponse = _reflection.GeneratedProtocolMessageType('AuthorisationResponse', (_message.Message,), {
+  'DESCRIPTOR' : _AUTHORISATIONRESPONSE,
+  '__module__' : 'auth_service_pb2'
+  # @@protoc_insertion_point(class_scope:auth_service.AuthorisationResponse)
+  })
+_sym_db.RegisterMessage(AuthorisationResponse)
+
+AuthorisationInput = _reflection.GeneratedProtocolMessageType('AuthorisationInput', (_message.Message,), {
+  'DESCRIPTOR' : _AUTHORISATIONINPUT,
+  '__module__' : 'auth_service_pb2'
+  # @@protoc_insertion_point(class_scope:auth_service.AuthorisationInput)
+  })
+_sym_db.RegisterMessage(AuthorisationInput)
+
+GetUserIDsDetailInput = _reflection.GeneratedProtocolMessageType('GetUserIDsDetailInput', (_message.Message,), {
+  'DESCRIPTOR' : _GETUSERIDSDETAILINPUT,
+  '__module__' : 'auth_service_pb2'
+  # @@protoc_insertion_point(class_scope:auth_service.GetUserIDsDetailInput)
+  })
+_sym_db.RegisterMessage(GetUserIDsDetailInput)
+
+GetUserIDsDetailResponse = _reflection.GeneratedProtocolMessageType('GetUserIDsDetailResponse', (_message.Message,), {
+  'DESCRIPTOR' : _GETUSERIDSDETAILRESPONSE,
+  '__module__' : 'auth_service_pb2'
+  # @@protoc_insertion_point(class_scope:auth_service.GetUserIDsDetailResponse)
+  })
+_sym_db.RegisterMessage(GetUserIDsDetailResponse)
+
 _AUTHSERVICE = DESCRIPTOR.services_by_name['AuthService']
 if _descriptor._USE_C_DESCRIPTORS == False:
 
@@ -155,13 +211,27 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _VALIDATEMOBILEOTPINPUT._serialized_start=834
   _VALIDATEMOBILEOTPINPUT._serialized_end=887
   _USERLISTDATA._serialized_start=890
-  _USERLISTDATA._serialized_end=1045
-  _GETUSERLISTINPUT._serialized_start=1047
-  _GETUSERLISTINPUT._serialized_end=1079
-  _USERLISTRESPONSE._serialized_start=1082
-  _USERLISTRESPONSE._serialized_end=1244
-  _USEREDITINPUT._serialized_start=1247
-  _USEREDITINPUT._serialized_end=1381
-  _AUTHSERVICE._serialized_start=1384
-  _AUTHSERVICE._serialized_end=1888
+  _USERLISTDATA._serialized_end=1068
+  _GETUSERLISTINPUT._serialized_start=1070
+  _GETUSERLISTINPUT._serialized_end=1102
+  _USERLISTRESPONSE._serialized_start=1105
+  _USERLISTRESPONSE._serialized_end=1267
+  _USEREDITINPUT._serialized_start=1270
+  _USEREDITINPUT._serialized_end=1427
+  _USERSHORTRESPONSE._serialized_start=1429
+  _USERSHORTRESPONSE._serialized_end=1548
+  _USERMINIMUMRESPONSE._serialized_start=1550
+  _USERMINIMUMRESPONSE._serialized_end=1640
+  _STATUSRESPONSE._serialized_start=1642
+  _STATUSRESPONSE._serialized_end=1719
+  _AUTHORISATIONRESPONSE._serialized_start=1721
+  _AUTHORISATIONRESPONSE._serialized_end=1837
+  _AUTHORISATIONINPUT._serialized_start=1839
+  _AUTHORISATIONINPUT._serialized_end=1874
+  _GETUSERIDSDETAILINPUT._serialized_start=1876
+  _GETUSERIDSDETAILINPUT._serialized_end=1914
+  _GETUSERIDSDETAILRESPONSE._serialized_start=1916
+  _GETUSERIDSDETAILRESPONSE._serialized_end=1992
+  _AUTHSERVICE._serialized_start=1995
+  _AUTHSERVICE._serialized_end=2693
 # @@protoc_insertion_point(module_scope)

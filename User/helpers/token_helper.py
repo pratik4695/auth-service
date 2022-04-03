@@ -45,10 +45,12 @@ def generate_token(user):
 
 
 def generate_access_token(user):
+    user.decrypt_data()
     access_token_payload = {
         "id": str(user.id),
         "name": user.name,
         "user_type": user.user_type,
+        "email": user.email,
         "expires": str(datetime.datetime.utcnow() + datetime.timedelta(days=ACCESS_TOKEN_EXPIRE_DAYS)),
     }
     access_token = jwt.encode(access_token_payload, settings.ENCRYPT_KEY, algorithm='HS256')

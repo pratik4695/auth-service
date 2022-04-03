@@ -75,7 +75,8 @@ message UserListData {
   string email = 5;
   string mobile = 6;
   string username = 8;
-  string access_token = 9;
+  string date_of_birth = 9;
+  string access_token = 10;
 }
 
 message GetUserListInput {
@@ -98,8 +99,48 @@ message UserEditInput {
   string user_type = 4;
   string email = 5;
   string mobile = 6;
-  string username = 8;
+  string username = 7;
+  string date_of_birth = 8;
 }
+
+message UserShortResponse {
+  string id = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string email = 4;
+  string mobile = 5;
+  string username = 6;
+}
+
+message UserMinimumResponse {
+  string id = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string username = 6;
+}
+
+message StatusResponse {
+  string error_message = 1;
+  int32 status_code = 2;
+  bool success = 3;
+}
+message AuthorisationResponse {
+  UserShortResponse user = 1;
+  StatusResponse status = 2;
+}
+
+message AuthorisationInput {
+  string token = 1;
+}
+
+message GetUserIDsDetailInput {
+  repeated string users = 1;
+}
+
+message GetUserIDsDetailResponse {
+  repeated UserMinimumResponse users = 1;
+}
+
 
 service  AuthService{
   rpc RegisterUser(RegisterUserInput) returns (UserLoginResponse);
@@ -108,4 +149,6 @@ service  AuthService{
   rpc ValidateMobileOTP(ValidateMobileOTPInput) returns (BooleanResponse);
   rpc GetUserList(GetUserListInput) returns (UserListResponse);
   rpc EditUserDetail(UserEditInput) returns (BooleanResponse);
+  rpc AuthenticateUserViaJWT(AuthorisationInput) returns (AuthorisationResponse);
+  rpc GetUserIDsDetail(GetUserIDsDetailInput) returns (GetUserIDsDetailResponse);
 }

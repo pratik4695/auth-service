@@ -531,6 +531,8 @@ class UserJWTToken(TimeStampedModel):
         return timezone.now() >= self.expires
 
 
+
+
 class UserActivationKey(TimeStampedModel):
     """
     Will use this model for password reset, forgot password etc,

@@ -122,14 +122,26 @@ class UserShortSerializer(ModelSerializer):
     Created On: 03/12/2020
     """
 
-    # email = serializers.SerializerMethodField()
-    # mobile = serializers.SerializerMethodField()
+    email = SerializerMethodField()
+    mobile = SerializerMethodField()
 
     class Meta:
         model = User
         fields = (
-            'id', 'user_type', 'first_name', 'last_name'
+            'id', 'first_name', 'last_name', 'email', 'mobile', 'username'
         )
+
+    @staticmethod
+    def get_email(user: User):
+        user.decrypt_email()
+        email = user.email
+        return email
+
+    @staticmethod
+    def get_mobile(user: User):
+        user.decrypt_mobile()
+        mobile = user.mobile
+        return mobile
 
 
 class UserListShortSerializer(ModelSerializer):
@@ -137,6 +149,14 @@ class UserListShortSerializer(ModelSerializer):
         model = User
         fields = (
             'id', 'user_type', 'first_name', 'last_name'
+        )
+
+
+class UserListMinimumSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = (
+            'id', 'first_name', 'last_name', 'username'
         )
 
 
@@ -156,7 +176,7 @@ class UserListSerializer(ModelSerializer):
     class Meta:
         model = User
         fields = (
-            'id', 'user_type', 'first_name', 'last_name', 'email', 'mobile', 'username', 'access_token'
+            'id', 'user_type', 'first_name', 'last_name', 'email', 'mobile', 'date_of_birth', 'username', 'access_token'
         )
 
     @staticmethod
