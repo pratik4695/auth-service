@@ -1,18 +1,22 @@
 import os
+import sys
 from os.path import isfile
 
 import yaml
 from django.core.exceptions import ImproperlyConfigured
 
 
-import collections
+if sys.version_info.major == 3 and sys.version_info.minor >= 10:
+    from collections.abc import MutableMapping
+else:
+    from collections import MutableMapping
 
 
 def flatten(d, parent_key="", sep="."):
     items = []
     for k, v in d.items():
         new_key = parent_key + sep + k if parent_key else k
-        if isinstance(v, collections.MutableMapping):
+        if isinstance(v, MutableMapping):
             items.extend(flatten(v, new_key, sep=sep).items())
         else:
             items.append((new_key, v))

@@ -93,7 +93,7 @@ class PushTaskMeta:
 
     def set_template_url(self):
         return "%s%s/attendance/push/%s" % (
-            settings.NOTIFICATION_TEMPLATE_BASE_URL, PlatformBucket.OLX_PEOPLE, self.template)
+            settings.NOTIFICATION_TEMPLATE_BASE_URL, PlatformBucket.MYSTOX_PEOPLE, self.template)
 
     def get_notification_name(self):
         """
@@ -123,7 +123,7 @@ class PushTaskMeta:
                 push = Push(token=token_value, template=template_url, context=self.handlebar_dict,
                             extra_payload=self.extra_payload, user_id=self.user_id, client_platform=client_value)
                 task = Task(name=self.notification_name, sent_by_id="test", client='staffing-attendance-api',
-                            platform=PlatformType.OLX_PEOPLE, message_type=self.message_type, push=push)
+                            platform=PlatformType.MYSTOX_PEOPLE, message_type=self.message_type, push=push)
                 try:
                     task_id, msg_id = task.send()
                     self.logger.info("Successfully sent task {} to SQS with messageId {}".format(task_id, msg_id))
@@ -160,9 +160,9 @@ class EmailTaskMeta:
     skip_email_verification = False
     skip_subscription = False
     message_type = MessageType.TRANSACTIONAL  # Default is transactional message
-    _default_send_from = "noreply@olxpeople.com"
+    _default_send_from = "noreply@mystox.com"
     _default_from_name = "Olx People"
-    _default_reply_to = "noreply@olxpeople.com"
+    _default_reply_to = "noreply@mystox.com"
     _default_signature = "Team OLX People"
     _default_cc = []
     _default_attachments = []
@@ -217,7 +217,7 @@ class EmailTaskMeta:
 
     def set_template_url(self):
         self.template = "%s%s/attendance/email/%s" % (
-            settings.NOTIFICATION_TEMPLATE_BASE_URL, PlatformBucket.OLX_PEOPLE, self.template)
+            settings.NOTIFICATION_TEMPLATE_BASE_URL, PlatformBucket.MYSTOX_PEOPLE, self.template)
         return self.template
 
     def get_send_from(self):
@@ -262,10 +262,10 @@ class EmailTaskMeta:
         return self._default_signature
 
     def _add_default_handlebars(self):
-        facebook_link = "https://www.facebook.com/OlxPeople-627201761121386"
+        facebook_link = "https://www.facebook.com/mystox-627201761121386"
         linkedin_link = "https://www.linkedin.com/company/14702596"
         youtube_link = "https://www.youtube.com/channel/UCkjEYqhAdy5ew8xTZlYQkBg?reload=9"
-        twitter_link = "https://twitter.com/olxpeople"
+        twitter_link = "https://twitter.com/mystox"
         website = settings.RECRUIT_WEBSITE_URL
         self.handlebar_dict.update({
             "fb_link": facebook_link,
@@ -277,7 +277,7 @@ class EmailTaskMeta:
         })
 
     def _append_utm_parameters(self, url):
-        utm_source = "olxPeople"
+        utm_source = "mystox"
         utm_medium = "email"
         utm_campaign = self.notification_name
         connector = '&' if '?' in url else '?'
@@ -380,19 +380,19 @@ class EmailTaskMeta:
                                                                          email=self.get_send_from()),
                       cc=self.get_cc_list(), reply_to=reply_to)
         task = Task(name=self.notification_name, sent_by_id=self.get_sent_by(), client='staffing-attendance-api',
-                    platform=PlatformType.OLX_PEOPLE, email=email, message_type=self.message_type)
+                    platform=PlatformType.MYSTOX_PEOPLE, email=email, message_type=self.message_type)
         try:
             task_id, msg_id = task.send()
             self.logger.info("Successfully sent task {} to SQS with messageId {}".format(task_id, msg_id))
         except Exception as ex:
             self.logger.error("Failed to send task to SQS, reason: {}".format(ex))
 
-    def _get_olx_people_default_handlebars(self):
-        facebook_link = "https://www.facebook.com/OlxPeople-627201761121386"
+    def _get_mystox_people_default_handlebars(self):
+        facebook_link = "https://www.facebook.com/mystox-627201761121386"
         linkedin_link = "https://www.linkedin.com/company/14702596"
         youtube_link = "https://www.youtube.com/channel/UCkjEYqhAdy5ew8xTZlYQkBg?reload=9"
-        twitter_link = "https://twitter.com/olxpeople"
-        website = 'www.olxpeople.com'
+        twitter_link = "https://twitter.com/mystox"
+        website = 'www.mystox.com'
         return {
             "fb_link": facebook_link,
             "li_link": linkedin_link,
