@@ -128,7 +128,7 @@ class UserShortSerializer(ModelSerializer):
     class Meta:
         model = User
         fields = (
-            'id', 'first_name', 'last_name', 'email', 'mobile', 'username'
+            'id', 'first_name', 'last_name', 'email', 'mobile', 'username', 'user_full_name'
         )
 
     @staticmethod

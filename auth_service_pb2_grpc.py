@@ -32,7 +32,7 @@ class AuthServiceStub(object):
         self.ValidateMobileOTP = channel.unary_unary(
                 '/auth_service.AuthService/ValidateMobileOTP',
                 request_serializer=auth__service__pb2.ValidateMobileOTPInput.SerializeToString,
-                response_deserializer=auth__service__pb2.BooleanResponse.FromString,
+                response_deserializer=auth__service__pb2.ValidateMobileOTPResponse.FromString,
                 )
         self.GetUserList = channel.unary_unary(
                 '/auth_service.AuthService/GetUserList',
@@ -128,7 +128,7 @@ def add_AuthServiceServicer_to_server(servicer, server):
             'ValidateMobileOTP': grpc.unary_unary_rpc_method_handler(
                     servicer.ValidateMobileOTP,
                     request_deserializer=auth__service__pb2.ValidateMobileOTPInput.FromString,
-                    response_serializer=auth__service__pb2.BooleanResponse.SerializeToString,
+                    response_serializer=auth__service__pb2.ValidateMobileOTPResponse.SerializeToString,
             ),
             'GetUserList': grpc.unary_unary_rpc_method_handler(
                     servicer.GetUserList,
@@ -224,7 +224,7 @@ class AuthService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/auth_service.AuthService/ValidateMobileOTP',
             auth__service__pb2.ValidateMobileOTPInput.SerializeToString,
-            auth__service__pb2.BooleanResponse.FromString,
+            auth__service__pb2.ValidateMobileOTPResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
