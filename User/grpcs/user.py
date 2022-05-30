@@ -1,7 +1,7 @@
 import datetime
 
 from User.models import User
-from User.serializers.user import UserListSerializer, UserSerializer, UserListMinimumSerializer
+from User.serializers.user import UserListSerializer, UserSerializer, UserListMinimumSerializer, UserShortSerializer
 from core.grpc import UnaryGRPC
 from auth_service_pb2 import UserListResponse, BooleanResponse
 from core.grpc_exceptions import ValidationError
@@ -148,6 +148,33 @@ class GetUserIDsDetail(UnaryGRPC):
             raise ValidationError("Invalid user ids were provided")
 
         serializer = UserListMinimumSerializer(users, many=True)
+
+        response = {
+            "users": serializer.data
+        }
+        print("This is the response = {}".format(response))
+
+        return response
+
+
+class GetUserProfile(UnaryGRPC):
+    response_proto = UserListResponse
+
+    def perform_authentication(self, user):
+        if not user:
+            return False
+        return True
+
+    def run_logic(self, data):
+        user_id = self.user_json.get("id")
+        log.info("Received request for fetching user profile with user id - {} and data - {}".format(user_id, data))
+
+        try:
+            user = User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            raise ValidationError("No records found for the user")
+
+        serializer = UserShortSerializer(user, many=True)
 
         response = {
             "users": serializer.data

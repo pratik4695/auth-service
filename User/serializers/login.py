@@ -44,6 +44,30 @@ class UserLoginWithPasswordSerializer(serializers.Serializer):
         }
 
 
+class UserLoginWithMobileSerializer(serializers.Serializer):
+    email = serializers.CharField(max_length=255)
+    access_token = serializers.CharField(max_length=400, read_only=True)
+    refresh_token = serializers.CharField(max_length=400, read_only=True)
+    expires = serializers.IntegerField(read_only=True)
+
+    def validate(self, data):
+        email = data.get("email", None)
+
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            raise serializers.ValidationError('User with given email and password does not exists')
+
+        token = generate_token(user)
+
+        return {
+            'email': email,
+            'access_token': token.get("access_token"),
+            'refresh_token': token.get("refresh_token"),
+            'expires': parse(token.get("expires")).timestamp()
+        }
+
+
 class UserLoginDataSerializer(ModelSerializer):
     """
     """
@@ -53,7 +77,7 @@ class UserLoginDataSerializer(ModelSerializer):
     class Meta:
         model = User
         fields = (
-            'id', 'user_type', 'first_name', 'last_name', 'email', 'mobile', 'username'
+            'id', 'user_type', 'user_full_name', 'first_name', 'last_name', 'email', 'mobile', 'username'
         )
 
     def get_email(self, user):
