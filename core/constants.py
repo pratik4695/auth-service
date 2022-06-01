@@ -5,12 +5,12 @@ from django.conf import settings
 
 class PlatformType:
     AASAANJOBS = 0
-    OLX_PEOPLE = 1
+    MYSTOX_PEOPLE = 1
 
 
 class PlatformBucket:
     AASAANJOBS = 'aasaanjobs'
-    OLX_PEOPLE = 'olx-people'
+    MYSTOX_PEOPLE = 'mystox-people'
 
 
 class MobilePushClient:
