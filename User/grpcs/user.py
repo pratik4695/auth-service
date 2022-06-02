@@ -3,7 +3,7 @@ import datetime
 from User.models import User
 from User.serializers.user import UserListSerializer, UserSerializer, UserListMinimumSerializer, UserShortSerializer
 from core.grpc import UnaryGRPC
-from auth_service_pb2 import UserListResponse, BooleanResponse
+from auth_service_pb2 import UserListResponse, BooleanResponse, UserShortResponse
 from core.grpc_exceptions import ValidationError
 from utils.logging import get_logger
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -158,7 +158,7 @@ class GetUserIDsDetail(UnaryGRPC):
 
 
 class GetUserProfile(UnaryGRPC):
-    response_proto = UserListResponse
+    response_proto = UserShortResponse
 
     def perform_authentication(self, user):
         if not user:
@@ -174,11 +174,9 @@ class GetUserProfile(UnaryGRPC):
         except User.DoesNotExist:
             raise ValidationError("No records found for the user")
 
-        serializer = UserShortSerializer(user, many=True)
+        serializer = UserShortSerializer(user)
 
-        response = {
-            "users": serializer.data
-        }
+        response =  serializer.data
         print("This is the response = {}".format(response))
 
         return response
