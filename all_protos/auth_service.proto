@@ -1,3 +1,158 @@
+//syntax = "proto3";
+//
+//package auth_service;
+//
+//message Empty {}
+//
+//message BooleanResponse {
+//  bool success = 1;
+//}
+//
+//message UserBlob {
+//  string id = 1;
+//  string first_name = 2;
+//  string last_name = 3;
+//  string user_type = 4;
+//  string entity_id = 5;
+//  string name = 6;
+//  string platform = 7;
+//}
+//
+//message AuthToken {
+//  string access_token = 1;
+//  string refresh_token = 2;
+//  int64 expires = 3;
+//}
+//
+//message Userdata {
+//  string id = 1;
+//  string first_name = 2;
+//  string last_name = 3;
+//  string user_type = 4;
+//  string email = 5;
+//  string mobile = 6;
+//  int64 created = 7;
+//  string username = 8;
+//}
+//
+//message UserLoginResponse {
+//  AuthToken token = 1;
+//  Userdata user = 2;
+//}
+//
+//message UserLoginWithPassword {
+//  string email = 1;
+//  string password = 2;
+//}
+//
+//message RegisterUserInput {
+//  string email = 1;
+//  string first_name = 2;
+//  string last_name = 3;
+//  string user_type = 4;
+//  string mobile = 5;
+//  string username = 6;
+//  string password = 7;
+//  string re_password = 8;
+//  string date_of_birth = 9;
+//  string gender = 10;
+//}
+//
+//message MobileInput {
+//  string mobile = 1;
+//}
+//
+//message ValidateMobileOTPInput {
+//  string mobile = 1;
+//  string otp = 2;
+//}
+//
+//message UserListData {
+//  string id = 1;
+//  string first_name = 2;
+//  string last_name = 3;
+//  string user_type = 4;
+//  string email = 5;
+//  string mobile = 6;
+//  string username = 8;
+//  string date_of_birth = 9;
+//  string access_token = 10;
+//}
+//
+//message GetUserListInput {
+//  int32 page = 1;
+//}
+//
+//message UserListResponse {
+//  repeated UserListData users = 1;
+//  int32 per_page = 2;
+//  int32 orphans = 3;
+//  int32 allow_empty_first_page = 4;
+//  int32 count = 5;
+//  int32 num_pages = 6;
+//}
+//
+//message UserEditInput {
+//  string id = 1;
+//  string first_name = 2;
+//  string last_name = 3;
+//  string user_type = 4;
+//  string email = 5;
+//  string mobile = 6;
+//  string username = 7;
+//  string date_of_birth = 8;
+//}
+//
+//message UserShortResponse {
+//  string id = 1;
+//  string first_name = 2;
+//  string last_name = 3;
+//  string email = 4;
+//  string mobile = 5;
+//  string username = 6;
+//}
+//
+//message UserMinimumResponse {
+//  string id = 1;
+//  string first_name = 2;
+//  string last_name = 3;
+//  string username = 6;
+//}
+//
+//message StatusResponse {
+//  string error_message = 1;
+//  int32 status_code = 2;
+//  bool success = 3;
+//}
+//message AuthorisationResponse {
+//  UserShortResponse user = 1;
+//  StatusResponse status = 2;
+//}
+//
+//message AuthorisationInput {
+//  string token = 1;
+//}
+//
+//message GetUserIDsDetailInput {
+//  repeated string users = 1;
+//}
+//
+//message GetUserIDsDetailResponse {
+//  repeated UserMinimumResponse users = 1;
+//}
+//
+//
+//service  AuthService{
+//  rpc RegisterUser(RegisterUserInput) returns (UserLoginResponse);
+//  rpc LoginUser(UserLoginWithPassword) returns (UserLoginResponse);
+//  rpc GenerateMobileOTP(MobileInput) returns (BooleanResponse);
+//  rpc ValidateMobileOTP(ValidateMobileOTPInput) returns (BooleanResponse);
+//  rpc GetUserList(GetUserListInput) returns (UserListResponse);
+//  rpc EditUserDetail(UserEditInput) returns (BooleanResponse);
+//  rpc AuthenticateUserViaJWT(AuthorisationInput) returns (AuthorisationResponse);
+//  rpc GetUserIDsDetail(GetUserIDsDetailInput) returns (GetUserIDsDetailResponse);
+//}
+
 syntax = "proto3";
 
 package auth_service;
@@ -141,12 +296,17 @@ message GetUserIDsDetailResponse {
   repeated UserMinimumResponse users = 1;
 }
 
+message ValidateMobileOTPResponse {
+  bool is_current_user = 1;
+  AuthToken token = 2;
+  Userdata user = 3;
+}
 
 service  AuthService{
   rpc RegisterUser(RegisterUserInput) returns (UserLoginResponse);
   rpc LoginUser(UserLoginWithPassword) returns (UserLoginResponse);
   rpc GenerateMobileOTP(MobileInput) returns (BooleanResponse);
-  rpc ValidateMobileOTP(ValidateMobileOTPInput) returns (BooleanResponse);
+  rpc ValidateMobileOTP(ValidateMobileOTPInput) returns (ValidateMobileOTPResponse);
   rpc GetUserList(GetUserListInput) returns (UserListResponse);
   rpc EditUserDetail(UserEditInput) returns (BooleanResponse);
   rpc AuthenticateUserViaJWT(AuthorisationInput) returns (AuthorisationResponse);

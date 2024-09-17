@@ -32,7 +32,7 @@ class AuthServiceStub(object):
         self.ValidateMobileOTP = channel.unary_unary(
                 '/auth_service.AuthService/ValidateMobileOTP',
                 request_serializer=auth__service__pb2.ValidateMobileOTPInput.SerializeToString,
-                response_deserializer=auth__service__pb2.BooleanResponse.FromString,
+                response_deserializer=auth__service__pb2.ValidateMobileOTPResponse.FromString,
                 )
         self.GetUserList = channel.unary_unary(
                 '/auth_service.AuthService/GetUserList',
@@ -53,6 +53,11 @@ class AuthServiceStub(object):
                 '/auth_service.AuthService/GetUserIDsDetail',
                 request_serializer=auth__service__pb2.GetUserIDsDetailInput.SerializeToString,
                 response_deserializer=auth__service__pb2.GetUserIDsDetailResponse.FromString,
+                )
+        self.GetUserProfile = channel.unary_unary(
+                '/auth_service.AuthService/GetUserProfile',
+                request_serializer=auth__service__pb2.Empty.SerializeToString,
+                response_deserializer=auth__service__pb2.UserShortResponse.FromString,
                 )
 
 
@@ -107,6 +112,12 @@ class AuthServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetUserProfile(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_AuthServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -128,7 +139,7 @@ def add_AuthServiceServicer_to_server(servicer, server):
             'ValidateMobileOTP': grpc.unary_unary_rpc_method_handler(
                     servicer.ValidateMobileOTP,
                     request_deserializer=auth__service__pb2.ValidateMobileOTPInput.FromString,
-                    response_serializer=auth__service__pb2.BooleanResponse.SerializeToString,
+                    response_serializer=auth__service__pb2.ValidateMobileOTPResponse.SerializeToString,
             ),
             'GetUserList': grpc.unary_unary_rpc_method_handler(
                     servicer.GetUserList,
@@ -149,6 +160,11 @@ def add_AuthServiceServicer_to_server(servicer, server):
                     servicer.GetUserIDsDetail,
                     request_deserializer=auth__service__pb2.GetUserIDsDetailInput.FromString,
                     response_serializer=auth__service__pb2.GetUserIDsDetailResponse.SerializeToString,
+            ),
+            'GetUserProfile': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetUserProfile,
+                    request_deserializer=auth__service__pb2.Empty.FromString,
+                    response_serializer=auth__service__pb2.UserShortResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -224,7 +240,7 @@ class AuthService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/auth_service.AuthService/ValidateMobileOTP',
             auth__service__pb2.ValidateMobileOTPInput.SerializeToString,
-            auth__service__pb2.BooleanResponse.FromString,
+            auth__service__pb2.ValidateMobileOTPResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -293,5 +309,22 @@ class AuthService(object):
         return grpc.experimental.unary_unary(request, target, '/auth_service.AuthService/GetUserIDsDetail',
             auth__service__pb2.GetUserIDsDetailInput.SerializeToString,
             auth__service__pb2.GetUserIDsDetailResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetUserProfile(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/auth_service.AuthService/GetUserProfile',
+            auth__service__pb2.Empty.SerializeToString,
+            auth__service__pb2.UserShortResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
