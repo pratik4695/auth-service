@@ -1,0 +1,4 @@
+-r requirements.txt
+
+# Mac specific requirements
+backports.zoneinfo==0.2.1

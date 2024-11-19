@@ -705,5 +705,3 @@ class MobileOTP(TimeStampedModel):
         response = requests.get(url, data=payload, headers=headers)
 
         print(response.text)
-
-
