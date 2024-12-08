@@ -41,7 +41,8 @@ TYPE_CALLABLE_MAP = {
     FieldDescriptor.TYPE_BOOL: bool,
     FieldDescriptor.TYPE_STRING: six.text_type,
     FieldDescriptor.TYPE_BYTES: six.binary_type,
-    FieldDescriptor.TYPE_ENUM: int,
+    # For current purpose, only booleans are used as enum hence "bool" else it will be "int"
+    FieldDescriptor.TYPE_ENUM: bool,
 }
 
 
@@ -163,6 +164,8 @@ def dict_to_protobuf(pb_klass_or_instance, values, type_callable_map=REVERSE_TYP
     :param bool strict: complain if keys in the map are not fields on the message.
     :param bool strict: ignore None-values of fields, treat them as empty field
     """
+    # import pdb
+    # pdb.set_trace()
     if isinstance(pb_klass_or_instance, Message):
         instance = pb_klass_or_instance
     else:

@@ -7,7 +7,7 @@ from django.core.management import BaseCommand
 
 from User.grpcs import RegisterUser, LoginUser, GenerateMobileOTP, ValidateMobileOTP, GetUserList, EditUserDetail, \
     AuthenticateUserViaJWT
-from User.grpcs.user import GetUserIDsDetail
+from User.grpcs.user import GetUserIDsDetail, GetUserProfile
 from auth_service_pb2_grpc import AuthServiceServicer, add_AuthServiceServicer_to_server
 
 
@@ -35,6 +35,9 @@ class AuthService(AuthServiceServicer):
 
     def GetUserIDsDetail(self, request, context):
         return GetUserIDsDetail(request, context).__call__()
+
+    def GetUserProfile(self, request, context):
+        return GetUserProfile(request, context).__call__()
 
 
 @contextmanager

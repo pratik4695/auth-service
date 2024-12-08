@@ -41,6 +41,7 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
     # mobile_last_updated_on = MonitorField(monitor='mobile_hash', null=True, default=None)
     first_name = models.CharField(max_length=100, null=True, blank=True)
     last_name = models.CharField(max_length=100, null=True, blank=True)
+    user_full_name = models.CharField(max_length=250, null=True, blank=True)
     date_of_birth = models.DateField(null=True, blank=True, validators=[age_validator])
     # photo = models.ImageField(max_length=255, upload_to=get_upload_file_name, blank=True, null=True, default=None)
     gender = models.CharField(max_length=1, choices=GenderChoices.choices, blank=True, null=True,
@@ -182,8 +183,11 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
         Returns Full Name of the User
         :return: first_name + ' ' + last_name
         """
-        name_components = [_ for _ in [self.first_name, self.last_name] if _]
-        return " ".join(name_components)
+        if self.user_full_name:
+            return self.user_full_name
+        else:
+            name_components = [_ for _ in [self.first_name, self.last_name] if _]
+            return " ".join(name_components)
 
     # def _set_password(self, raw_password=None):
     #     if raw_password is None:
@@ -432,85 +436,6 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
         else:
             return False
 
-    # def validate_auto_login_code(self, hash_code, code_type, modified_by=None):
-    #     reset_code = False
-    #     if code_type == "mobile":
-    #         login_code_status = self.login_codes.filter(code=hash_code, expiry__gte=datetime.now(),
-    #                                                     code_type=LoginCodeTypes.sms).exists()
-    #         reset_code = self.set_mobile_verified_with_history(login_code_status, modified_by=modified_by,
-    #                                                            comment="Actioned from validate_auto_login_code;"
-    #                                                                    " type:{0}, hash_code:{1}".format(code_type,
-    #                                                                                                      hash_code))
-    #     elif code_type == "email":
-    #         reset_code = self.validate_code(hash_code, reset_code_type=UserAccessCodeType.ALL_CODES)
-    #         if not reset_code:
-    #             login_code_status = self.login_codes.filter(code=hash_code, expiry__gte=datetime.now(),
-    #                                                         code_type=LoginCodeTypes.email).exists()
-    #             reset_code = self.set_email_verified_with_history(login_code_status, modified_by=modified_by,
-    #                                                               comment="Actioned from validate_auto_login_code;"
-    #                                                                       " type:{0}, hash_code:{1}".format(code_type,
-    #                                                                                                         hash_code))
-    #     return reset_code
-
-    # def send_otp(self, otp, reset_code_type, otp_via_email=False):
-    #
-    #     self.decrypt_data()
-    #     if otp_via_email:
-    #         if reset_code_type in [UserAccessCodeType.ACTIVATION_CODE, UserAccessCodeType.EMAIL_ACTIVATION_CODE]:
-    #             send_to = self.reset_code.temp_email if self.email_verified \
-    #                                                     and self.reset_code.temp_email else self.email
-    #         else:
-    #             send_to = self.email
-    #         # transaction.on_commit(EmailOtpService(user=self, otp=otp, reset_code_type=reset_code_type))
-    #     else:
-    #         send_to = self.reset_code.temp_mobile if self.mobile_verified \
-    #                                                  and self.reset_code.temp_mobile else self.mobile
-    #         if reset_code_type == UserAccessCodeType.ACTIVATION_CODE:
-    #             ResendActivationCode(user=self, otp=otp, send_to=send_to).__call__()
-    #             if self.mobile and self.reset_code.temp_mobile == send_to and self.email_verified:
-    #                 from authentication.utils import get_password_reset_url
-    #                 handlebars_data = {
-    #                     "new_mobile": send_to,
-    #                     "first_name": self.first_name,
-    #                     "made_changes_url": settings.OLX_JOBS_RECRUIT_WEBSITE,
-    #                     "did_not_made_changes_url": get_password_reset_url(self)
-    #                 }
-    #
-    #                 MobileChangeNotificationOnVerifiedEmail(self, handlebars_data).__call__()
-    #         elif reset_code_type == UserAccessCodeType.LOGIN_CODE:
-    #             SendLoginOTP(user=self, otp=otp, send_to=send_to).__call__()
-    #
-    #         elif reset_code_type == UserAccessCodeType.PASSWORD_RESET_CODE:
-    #             PasswordResetCode(user=self, otp=otp, send_to=send_to).__call__()
-    #
-    #         elif reset_code_type == UserAccessCodeType.PROFILE_ACCESS_CODE:
-    #             UserAccessCode(user=self, otp=otp, send_to=send_to).__call__()
-    #
-    #         else:
-    #             send_to = self.mobile
-    #             # transaction.on_commit(lambda: send_sms_to_user.apply_async((self, send_to,
-    #             #                                                             otp, reset_code_type, None, aj_client),
-    #             #                                                            countdown=2))
-    #             from notifications.tasks.common.otp_sms import SendOTP
-    #             transaction.on_commit(SendOTP(user=self, send_to=send_to, otp=otp, reset_code_type=reset_code_type))
-
-    # def send_code(self, hash_code, form_url, reset_code_type):
-    #     self.decrypt_email()
-    #     if reset_code_type == UserAccessCodeType.ACTIVATION_CODE:
-    #         send_to = self.reset_code.temp_email if self.email_verified else self.email
-    #     else:
-    #         send_to = self.email
-    #     if send_to is None:
-    #         raise CustomValidationError("provided email is not valid. Please recheck!!")
-    #     if self.email is None:
-    #         raise CustomValidationError("User does not contain email ID!!!")
-    #
-    #     email_url = form_url + "?username=" + self.email + "&hash_code=" + hash_code
-    #     if self.reset_code.temp_email and self.email_verified:
-    #
-    #         EmailChangeNotificationOnVerifiedEmail(self.id, email_url, send_to).__call__()
-    #     transaction.on_commit(EmailVerificationService(self.id, email_url, reset_code_type, send_to))
-
 
 class UserJWTToken(TimeStampedModel):
     """
@@ -529,8 +454,6 @@ class UserJWTToken(TimeStampedModel):
             return True
 
         return timezone.now() >= self.expires
-
-
 
 
 class UserActivationKey(TimeStampedModel):
